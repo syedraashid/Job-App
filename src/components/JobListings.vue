@@ -1,10 +1,11 @@
 <script setup>
-import { ref,defineProps } from 'vue';
+import { ref,defineProps, onMounted} from 'vue';
 import JobData from './jobs.json';
 import JobListing from "@/components/JobListing.vue";
 import { RouterLink } from "vue-router";
+import  axios  from "axios";
 
-const jobs = ref(JobData.jobs);
+const jobslist = ref(JobData.jobs);
 
 defineProps({
     limit:Number,
@@ -13,6 +14,10 @@ defineProps({
         default:false,
     }
 })
+
+// onMounted(async () => {
+//   const response = await 
+// }),
 </script>
  
 <template>
@@ -22,7 +27,7 @@ defineProps({
           Browse Jobs
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <JobListing v-for="job in jobs.splice(limit || jobs.length)" :key="job.id" :job="job" />
+            <JobListing v-for="job in jobslist.splice(0, limit || jobslist.length)" :key="job.id" :job="job" />
          </div>
         </div>
      </section>
